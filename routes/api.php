@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\UserType;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/a' , function() {
-    echo 'hi';
+Route::get('/' , function (){
+    $type = new UserType();
+    $type->type_name = 'seller';
+    $type->save();
+    $type2 = new UserType();
+    $type2->type_name = 'user';
+    $type2->save();
 });
+Route::post('/login' , [AuthController::class , 'login']);
+Route::post('/register' , [AuthController::class , 'register']);
+Route::get('/logout' , [AuthController::class , 'logout']);
+
+
