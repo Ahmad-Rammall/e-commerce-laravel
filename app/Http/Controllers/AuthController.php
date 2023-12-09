@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Seller;
 
 class AuthController extends Controller
 {
@@ -56,7 +57,15 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'user_type' => $request->type
         ]);
-        
+
+        if ($user) {
+            if ($user->user_type == 1) {
+                Seller::create([
+                    'user_id' => $user->id,
+                ]);
+            }
+        }
+
         $token = Auth::login($user);
         return response()->json([
             'status' => 'success',
