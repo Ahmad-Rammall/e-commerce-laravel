@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Seller;
+use App\Models\Cart;
+
 
 class AuthController extends Controller
 {
@@ -65,6 +67,8 @@ class AuthController extends Controller
                     'user_id' => $user->id,
                 ]);
             }
+
+            Cart::create(['user_id' =>$user->id,]);
         }
 
         $token = Auth::login($user);
