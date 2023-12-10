@@ -34,6 +34,7 @@ Route::post('/register' , [AuthController::class , 'register']);
 Route::get('/logout' , [AuthController::class , 'logout']);
 
 Route::get('/products' , [ProductController::class , 'getAllProducts']);
+Route::get('/getproduct/{id}' , [ProductController::class , 'getProductById']);
 Route::post('/addproduct' , [ProductController::class , 'addProduct']);
 Route::post('/updateproduct' , [ProductController::class , 'updateProduct']);
 Route::post('/deleteproduct' , [ProductController::class , 'deleteProduct']);

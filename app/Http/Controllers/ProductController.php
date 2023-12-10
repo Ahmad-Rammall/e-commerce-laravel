@@ -51,6 +51,26 @@ class ProductController extends Controller
             'products' => $products,
         ], 200);
     }
+
+    public function getProductById($id)
+    {
+        if (!$this->verifyUser()) {
+            return response()->json([
+                'status' => 'Unauthorized',
+            ], 401);
+        }
+
+        $product = DB::select('
+        SELECT seller_products.*, products.name
+        FROM seller_products
+        JOIN products ON seller_products.product_id = products.id
+        WHERE seller_products.id = :id
+    ', ['id' => $id]);
+
+        return response()->json([
+            'products' => $product,
+        ], 200);
+    }
     public function addProduct(Request $request)
     {
         if (!$this->seller_id) {
