@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TransactionController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\UserType;
@@ -52,3 +54,7 @@ Route::post('/removeFromCart' , [CartController::class , 'removeFromCart']);
 // Orders Routes
 Route::get('/order/{id}' , [OrderController::class , 'getOrder']);
 Route::post('/makeOrder' , [OrderController::class , 'makeOrder']);
+
+// Transactions Routes
+Route::get('/transaction/{id}' , [TransactionController::class , 'getTransaction']);
+Route::post('/addTransaction' , [TransactionController::class , 'addTransaction']);
