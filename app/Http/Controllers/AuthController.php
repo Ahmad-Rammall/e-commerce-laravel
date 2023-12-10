@@ -40,7 +40,6 @@ class AuthController extends Controller
             'user' => $user,
             'authorisation' => [
                 'token' => $token,
-                'expires_in' => Auth::factory()->getTTL() ,
                 'type' => 'bearer',
             ]
         ]);
