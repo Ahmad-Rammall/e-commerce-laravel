@@ -26,10 +26,15 @@ class TransactionController extends Controller
     }
     public function getTransaction($id)
     {
-        $transaction = Transaction::where("id", $id)->first();
+        if ($this->user_id) {
+            $transaction = Transaction::where("id", $id)->first();
+            return response()->json([
+                'transaction' => $transaction
+            ]);
+        }
         return response()->json([
-            'transaction' => $transaction
-        ]);
+            'status' => 'Unauthorized',
+        ], 401);
     }
 
     public function addTransaction(Request $request)
@@ -42,7 +47,7 @@ class TransactionController extends Controller
             FROM order_details
             WHERE order_id = :order_id
             GROUP BY order_id;
-            ', ['order_id'=> $request->order_id]);
+            ', ['order_id' => $request->order_id]);
 
             // create transaction
             $transaction = Transaction::create([
@@ -51,7 +56,7 @@ class TransactionController extends Controller
                 'date' => now()
             ]);
 
-            if($transaction){
+            if ($transaction) {
                 return response()->json([
                     'status' => 'Transaction Added',
                     'transaction' => $transaction
