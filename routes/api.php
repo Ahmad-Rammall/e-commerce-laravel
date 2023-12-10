@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,16 +30,20 @@ Route::get('/' , function (){
     $type2->type_name = 'user';
     $type2->save();
 });
+
+// Users Routes
 Route::post('/login' , [AuthController::class , 'login']);
 Route::post('/register' , [AuthController::class , 'register']);
 Route::get('/logout' , [AuthController::class , 'logout']);
 
+// Products Routes
 Route::get('/products' , [ProductController::class , 'getAllProducts']);
 Route::get('/getproduct/{id}' , [ProductController::class , 'getProductById']);
 Route::post('/addproduct' , [ProductController::class , 'addProduct']);
 Route::post('/updateproduct' , [ProductController::class , 'updateProduct']);
 Route::post('/deleteproduct' , [ProductController::class , 'deleteProduct']);
 
-
-
-
+// Carts Routes
+Route::get('/cart/{id}' , [CartController::class , 'getCartProducts']);
+Route::post('/addToCart' , [CartController::class , 'addToCart']);
+Route::post('/removeFromCart' , [CartController::class , 'removeFromCart']);
